@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button, Nav, NavItem, NavLink } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import QuestionsList from './QuestionsList';
 
 function Home() {
+    
     return (<>
         <div className="d-flex bd-highlight mb-3 align-items-center">
             <div className="me-auto p-2 bd-highlight">Would You Rather..?</div>
@@ -38,7 +40,9 @@ function Home() {
                 </NavItem>
 
             </Nav>
-        </div></>
+        </div>
+        <QuestionsList/>
+        </>
     );
 }
 
