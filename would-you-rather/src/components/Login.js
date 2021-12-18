@@ -1,46 +1,53 @@
-import React from 'react';
-import { Button, Row, Col, Input } from 'reactstrap';
+import React, {useEffect, useState} from 'react';
+import {Button, Row, Col, Input, Form} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {connect} from "react-redux";
+import authedUser from "../reducers/authedUser";
+import {setAuthedUser} from "../actions/authedUser";
+import {withRouter} from 'react-router-dom'
+
+function Login(props) {
 
 
-function Login() {
+    const onSignIn = (e) => {
+        e.preventDefault()
+        const selectedUser = e.target.userSelect.value
+        props.dispatch(setAuthedUser(selectedUser))
+        props.history.push('/Home')
+    }
+
     return (
 
         <div className='vh-100 d-flex justify-content-center align-items-center'>
-            <div>
-            <div className='text-center'>
-                <p><h2>Would You Rather?</h2></p>
-                <p><h7>by Alperen Savaşkan</h7></p>
-            </div>
+            <Form onSubmit={onSignIn}>
+                <div className='text-center'>
+                    <h2>Would You Rather?</h2>
+                    <h6>by Alperen Savaşkan</h6>
+
+                </div>
                 <div className='mt-5 mb-5 text-center'><Input
-                    id="exampleSelect"
-                    name="select"
+                    id="userSelect"
+                    name="userSelect"
                     type="select"
                 >
-                    <option>
-                        Ahmet Mehmet
-                    </option>
-                    <option>
-                        2
-                    </option>
-                    <option>
-                        3
-                    </option>
-                    <option>
-                        4
-                    </option>
-                    <option>
-                        5
-                    </option>
+                    {Object.entries(props.users).map((user, index) => (
+                        <option key={user[1].id} value={user[1].id}>{user[1].name}</option>
+                    ))}
                 </Input>
                 </div>
                 <div className='text-center'>
-                    <Button color="success">Sign in</Button>
+                    <Button color="success" type="submit">Sign in</Button>
                 </div>
-            </div>
+            </Form>
         </div>
 
     );
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        users: state.users
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(Login))

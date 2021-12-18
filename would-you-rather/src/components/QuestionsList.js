@@ -10,12 +10,12 @@ function QuestionsList() {
             <div className="d-flex justify-content-center mt-5" >
                 <Nav pills>
                     <NavItem>
-                        <NavLink className={activeTab == '1' ? 'active' : ''} onClick={() => setActiveTab('1')}>
+                        <NavLink className={activeTab === '1' ? 'active' : ''} onClick={() => setActiveTab('1')}>
                             Unanswered Questions
                         </NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink className={activeTab == '2' ? 'active' : ''} onClick={() => setActiveTab('2')}>
+                        <NavLink className={activeTab === '2' ? 'active' : ''} onClick={() => setActiveTab('2')}>
                             Answered Questions
                         </NavLink>
                     </NavItem>
