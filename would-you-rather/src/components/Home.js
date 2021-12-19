@@ -4,13 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import QuestionsList from './QuestionsList';
 import {withRouter, NavLink as RRNavLink} from "react-router-dom";
 import {connect} from "react-redux";
+import {handleInitialDataAfterLogin} from '../actions/shared'
 
-import {outAuthedUser} from "../actions/authedUser";
 
 function Home(props) {
 
       useEffect(() => {
-          //console.log(props.authedUser)
+        props.dispatch(handleInitialDataAfterLogin())
+      
 
     }, [])
 
@@ -24,7 +25,8 @@ function Home(props) {
 const mapStateToProps = (state) => {
     return {
         users: state.users,
-        authedUser: state.authedUser
+        authedUser: state.authedUser,
+        questions: state.questions
     }
 }
 

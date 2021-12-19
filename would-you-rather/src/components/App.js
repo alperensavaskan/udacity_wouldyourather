@@ -20,7 +20,7 @@ function App(props) {
     const signOut = () => {
         props.dispatch(outAuthedUser())
     }
-
+   
     return (
         <Router>
             <Fragment>
@@ -30,8 +30,8 @@ function App(props) {
                     {props.authedUser ? (
                             <>
                                 <div className="p-2 bd-highlight"><img
-                                    src="https://lh3.googleusercontent.com/ogw/ADea4I56EDh9odYEFIxxcaYckfrhYfte_0Q-Wsre1EC2WQ=s192-c-mo"
-                                    height="40" width="40" className="rounded-circle" alt="Cinque Terre"/></div>
+                                    src={`${props.users[props.authedUser].avatarURL}`}
+                                    height="40" width="40" className="rounded-circle" alt=""/></div>
                                 <div className="p-2 bd-highlight">{props.users[props.authedUser].name}</div>
                                 <div className="p-2 bd-highlight"><Button color="danger" onClick={signOut}>Sign out</Button>
                                 </div>
@@ -48,10 +48,10 @@ function App(props) {
                             <NavLink tag={RouterNavLink} exact to="/Home" activeClassName="active">Home</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={RouterNavLink} exact to="/ddd" activeClassName="active">ss</NavLink>
+                            <NavLink tag={RouterNavLink} exact to="/ddd" activeClassName="active">New Question</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={RouterNavLink} exact to="/" activeClassName="active">Home</NavLink>
+                            <NavLink tag={RouterNavLink} exact to="/" activeClassName="active">Leader Board</NavLink>
                         </NavItem>
 
                     </Nav>
