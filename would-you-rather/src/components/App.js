@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {connect} from 'react-redux'
 import Login from './Login';
 import Home from './Home';
+import Leaderboard from "./Leaderboard";
+import QuestionDetail from './QuestionDetail';
 import {BrowserRouter as Router, NavLink as RouterNavLink, Route, Redirect} from 'react-router-dom'
 import {handleInitialUserListData} from '../actions/shared'
 import LoadingBar from 'react-redux-loading-bar'
@@ -48,10 +50,10 @@ function App(props) {
                             <NavLink tag={RouterNavLink} exact to="/Home" activeClassName="active">Home</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={RouterNavLink} exact to="/ddd" activeClassName="active">New Question</NavLink>
+                            <NavLink tag={RouterNavLink} exact to="/newQuestion" activeClassName="active">New Question</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={RouterNavLink} exact to="/" activeClassName="active">Leader Board</NavLink>
+                            <NavLink tag={RouterNavLink} exact to="/leaderboard" activeClassName="active">Leader Board</NavLink>
                         </NavItem>
 
                     </Nav>
@@ -61,8 +63,10 @@ function App(props) {
                     :
                     <div>
                         <Route path='/' exact component={Home}/>
-                        <Route path='/Home' exact component={Home}/>
+                        <Route path='/Home' component={Home}/>
                         <Route path='/login' component={Login}/>
+                        <Route path='/questions/:question_id' component={QuestionDetail}/>
+                        <Route path='/Leaderboard' component={Leaderboard}/>
                     </div>
                 }
             </Fragment>
