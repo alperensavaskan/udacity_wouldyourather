@@ -15,7 +15,7 @@ import {
     CardBody,
     Badge,
 } from 'reactstrap';
-import {Link, withRouter} from 'react-router-dom'
+import {Link, Redirect, withRouter} from 'react-router-dom'
 import {connect} from "react-redux";
 import {handleAllData} from "../actions/shared";
 import {formatDate} from "../utils/helpers";
@@ -50,10 +50,10 @@ function QuestionDetail(props) {
         setActiveOption(e.target.value)
     }
 
-    console.log("render")
 
 
     return (<>
+             {!props.authedUser && <Redirect to='/Login'/>}
             {isAnswered
                 ? <Col xs='6' className='mx-auto mt-5'>
                     <Card body>

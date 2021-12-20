@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Card, CardText, CardTitle, Button, Row, Col, Form, FormGroup, Input, Label} from 'reactstrap';
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {formatDate} from '../utils/helpers'
 import {connect} from "react-redux";
 
@@ -16,6 +16,7 @@ function Leaderboard(props) {
 
     return (
         <>
+             {!props.authedUser && <Redirect to='/Login'/>}
             {usersArrSorted.map((user) => (
                 <Col xs='6' className='mx-auto mt-5'>
                     <Card body>
@@ -57,6 +58,7 @@ function Leaderboard(props) {
 const mapStateToProps = (state) => {
     return {
         users: state.users,
+        authedUser : state.authedUser,
     }
 }
 

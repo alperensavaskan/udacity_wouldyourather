@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Card, CardText, CardTitle, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import QuestionsList from './QuestionsList';
-import {withRouter, NavLink as RRNavLink, Link} from "react-router-dom";
+import {withRouter, NavLink as RRNavLink, Link, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {handleAllData} from '../actions/shared'
 
@@ -22,6 +22,7 @@ function Home(props) {
 
 
     return (<>
+            {!props.authedUser && <Redirect to='/Login'/>}
             <div className="d-flex justify-content-center mt-5">
                 <Nav pills>
                     <NavItem>
