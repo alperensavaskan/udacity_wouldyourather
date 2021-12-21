@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
     Card,
@@ -15,10 +15,10 @@ import {
     CardBody,
     Badge,
 } from 'reactstrap';
-import {Link, Redirect, withRouter} from 'react-router-dom'
+import { Redirect,} from 'react-router-dom'
 import {connect} from "react-redux";
 import {handleAllData} from "../actions/shared";
-import {formatDate} from "../utils/helpers";
+
 import {handleSaveQuestionAnswer} from "../actions/questions";
 
 function QuestionDetail(props) {
@@ -28,7 +28,17 @@ function QuestionDetail(props) {
     const question = props.questions[id]
 
     const [activeOption, setActiveOption] = useState('optionOne');
-    //const [isAnswered, setIsAnswered] = useState(false);
+
+    if (!authedUser) {
+        return (<Redirect to={{
+            pathname: "/login",
+            state: {from: props.location.pathname}
+        }}/>)
+    }
+
+    if (!question) {
+        return (<Redirect to='/404'/>)
+    }
 
     const isAnswered = question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser);
     const optionOneCount = question.optionOne.votes.length
@@ -37,7 +47,6 @@ function QuestionDetail(props) {
     const optionOnePercentage = ((optionOneCount / totalVotes) * 100).toFixed(2);
     const optionTwoPercentage = ((optionTwoCount / totalVotes) * 100).toFixed(2);
     const authedUserVote = question.optionOne.votes.includes(authedUser) ? "optionOne" : "optionTwo"
-
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -50,10 +59,7 @@ function QuestionDetail(props) {
         setActiveOption(e.target.value)
     }
 
-
-
     return (<>
-             {!props.authedUser && <Redirect to='/Login'/>}
             {isAnswered
                 ? <Col xs='6' className='mx-auto mt-5'>
                     <Card body>
@@ -71,7 +77,7 @@ function QuestionDetail(props) {
                                 <CardTitle tag="h3">
                                     Results:
                                 </CardTitle>
-                                <CardText>
+                                <CardBody>
                                     <Card body
                                           className={authedUserVote === "optionOne" ? "text-right mt-2 bg-warning text-white" : "text-right mt-2"}>
                                         <CardTitle>Would you
@@ -98,7 +104,7 @@ function QuestionDetail(props) {
                                         <CardText>{optionTwoCount} out of {totalVotes} votes.</CardText>
                                     </Card>
 
-                                </CardText>
+                                </CardBody>
                             </Col>
                         </Row>
                     </Card>
@@ -119,7 +125,7 @@ function QuestionDetail(props) {
                                 <CardTitle tag="h4">
                                     Would you rather ..?
                                 </CardTitle>
-                                <CardText>
+                                <CardBody>
 
                                     <Form onSubmit={handleSubmit}>
                                         <FormGroup check>
@@ -146,7 +152,7 @@ function QuestionDetail(props) {
                                         </FormGroup>
                                         <Button color="primary" type="submit">Submit</Button>
                                     </Form>
-                                </CardText>
+                                </CardBody>
                             </Col>
                         </Row>
                     </Card>

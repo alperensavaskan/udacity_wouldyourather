@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Row, Col, Input, Form} from 'reactstrap';
+import React from 'react';
+import {Button, Input, Form} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {connect} from "react-redux";
-import authedUser from "../reducers/authedUser";
 import {setAuthedUser} from "../actions/authedUser";
 import {withRouter} from 'react-router-dom'
+
 
 function Login(props) {
 
@@ -13,7 +13,7 @@ function Login(props) {
         e.preventDefault()
         const selectedUser = e.target.userSelect.value
         props.dispatch(setAuthedUser(selectedUser))
-        props.history.push('/Home')
+        props.history.push(props.location.state.from)
     }
 
     return (

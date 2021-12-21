@@ -26,3 +26,7 @@ export function getAllData() {
 export function saveQuestionAnswer(answerInfo) {
     return _saveQuestionAnswer(answerInfo)
 }
+
+export function saveQuestion(questionInfo) {
+    return _saveQuestion(questionInfo)
+}

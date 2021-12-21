@@ -1,28 +1,25 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Card, CardText, CardTitle, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane} from 'reactstrap';
+import React, { useState} from 'react';
+import {Nav, NavItem, NavLink, TabContent, TabPane} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import QuestionsList from './QuestionsList';
-import {withRouter, NavLink as RRNavLink, Link, Redirect} from "react-router-dom";
+import {withRouter, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
-import {handleAllData} from '../actions/shared'
+
 
 
 function Home(props) {
     const [activeTab, setActiveTab] = useState('unanswered');
-    const users = props.users
-    const questions = Object.entries(props.questions)
-    const answeredQuestions = questions.filter(question => question[1].optionOne.votes.includes(props.authedUser) || question[1].optionTwo.votes.includes(props.authedUser))
-    const unansweredQuestions = questions.filter(question => !question[1].optionOne.votes.includes(props.authedUser) && !question[1].optionTwo.votes.includes(props.authedUser))
+    const {users, questions} = props
+    const answeredQuestions = Object.entries(questions).filter(question => question[1].optionOne.votes.includes(props.authedUser) || question[1].optionTwo.votes.includes(props.authedUser))
+    const unansweredQuestions = Object.entries(questions).filter(question => !question[1].optionOne.votes.includes(props.authedUser) && !question[1].optionTwo.votes.includes(props.authedUser))
     const answeredQuestionsSorted = Object.entries(answeredQuestions).sort((x, y) => y[1][1].timestamp - x[1][1].timestamp);
     const unansweredQuestionsSorted = Object.entries(unansweredQuestions).sort((x, y) => y[1][1].timestamp - x[1][1].timestamp)
 
-    useEffect(() => {
-        props.dispatch(handleAllData())
-    }, [])
-
-
     return (<>
-            {!props.authedUser && <Redirect to='/Login'/>}
+            {!props.authedUser && <Redirect to={{
+                pathname: "/login",
+                state: {from: props.location.pathname}
+            }}/>}
             <div className="d-flex justify-content-center mt-5">
                 <Nav pills>
                     <NavItem>
